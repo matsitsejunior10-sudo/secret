@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #ffebf3;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .container {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+            max-width: 800px;
+            z-index: 10;
+            position: relative;
+            border: 8px solid #ff4d6d;
+            margin: 20px;
+        }
+        
+        h1 {
+            color: #ff4d6d;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .heart {
+            color: #ff4d6d;
+            margin: 0 10px;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        p {
+            color: #d63384;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 20px 50px;
+            font-size: 1.8rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            border: 5px solid #ffccd5;
+        }
+        
+        #yesBtn:hover {
+            background-color: #ff3355;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4);
+        }
+        
+        #noBtn {
+            background-color: #ffccd5;
+            color: #ff4d6d;
+            border: 5px solid #ff4d6d;
+            position: relative;
+            user-select: none;
+        }
+        
+        .special-message {
+            background-color: #ffccd5;
+            color: #d63384;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+            font-size: 2rem;
+            font-weight: bold;
+            display: none;
+            border: 4px dashed #ff4d6d;
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart-float {
+            position: absolute;
+            color: rgba(255, 77, 109, 0.7);
+            font-size: 24px;
+            animation: float 6s ease-in infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .rose {
+            position: absolute;
+            z-index: 2;
+            font-size: 40px;
+            color: #ff4d6d;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        .footer-text {
+            color: #d63384;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            p {
+                font-size: 1.2rem;
+            }
+            
+            button {
+                padding: 15px 30px;
+                font-size: 1.5rem;
+            }
+            
+            .special-message {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+    
+    <!-- Roses around the page -->
+    <div class="roses-container" id="rosesContainer"></div>
+    
+    <!-- Main content container -->
+    <div class="container">
+        <h1>Will You Be My Valentine? <i class="fas fa-heart heart"></i></h1>
+        
+        <p>
+            My dearest, from the moment we met, you've filled my life with joy and laughter.<br>
+            You're the most amazing person I know, and I'm so grateful to have you in my life.<br>
+            This Valentine's Day, I want to make it extra special for us.
+        </p>
+        
+        <p>Will you do me the honor of being my Valentine?</p>
+        
+        <div class="buttons">
+            <button id="yesBtn">YES!</button>
+            <button id="noBtn">No</button>
+        </div>
+        
+        <div class="special-message" id="specialMessage">
+            Meet me at Farmers Market in Fourways<br>
+            <i class="fas fa-heart" style="color:#ff4d6d; margin: 0 10px;"></i>
+            Saturday, 14th February • 6 PM
+            <i class="fas fa-heart" style="color:#ff4d6d; margin: 0 10px;"></i>
+        </div>
+        
+        <div class="footer-text">
+            Made with <i class="fas fa-heart" style="color:#ff4d6d;"></i> for someone very special
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        const heartsContainer = document.getElementById('heartsContainer');
+        for (let i = 0; i < 50; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-float');
+            heart.innerHTML = '<i class="fas fa-heart"></i>';
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.fontSize = `${Math.random() * 20 + 15}px`;
+            heart.style.animationDelay = `${Math.random() * 5}s`;
+            heartsContainer.appendChild(heart);
+        }
+        
+        // Create decorative roses
+        const rosesContainer = document.getElementById('rosesContainer');
+        const roseCount = 15;
+        for (let i = 0; i < roseCount; i++) {
+            const rose = document.createElement('div');
+            rose.classList.add('rose');
+            rose.innerHTML = '<i class="fas fa-spa"></i>';
+            rose.style.left = `${Math.random() * 100}%`;
+            rose.style.top = `${Math.random() * 100}%`;
+            rose.style.fontSize = `${Math.random() * 30 + 25}px`;
+            rose.style.transform = `rotate(${Math.random() * 360}deg)`;
+            rose.style.opacity = `${Math.random() * 0.5 + 0.3}`;
+            rosesContainer.appendChild(rose);
+        }
+        
+        // Get DOM elements
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const specialMessage = document.getElementById('specialMessage');
+        const container = document.querySelector('.container');
+        
+        // Initialize variables for the moving "No" button
+        let moveCount = 0;
+        const maxMoveCount = 10;
+        
+        // Function to move the "No" button randomly
+        function moveNoButton() {
+            if (moveCount >= maxMoveCount) return;
+            
+            moveCount++;
+            
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = noBtn.getBoundingClientRect();
+            
+            // Calculate max positions within the container
+            const maxX = containerRect.width - buttonRect.width - 20;
+            const maxY = containerRect.height - buttonRect.height - 20;
+            
+            // Generate random position
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            // Apply the new position
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+            
+            // Change button text occasionally for humor
+            if (moveCount % 3 === 0) {
+                const funnyTexts = ["Are you sure?", "Think again!", "Really?", "Try again!", "Oops!"];
+                const randomText = funnyTexts[Math.floor(Math.random() * funnyTexts.length)];
+                noBtn.textContent = randomText;
+                
+                // Change back to "No" after 1 second
+                setTimeout(() => {
+                    if (moveCount < maxMoveCount) {
+                        noBtn.textContent = "No";
+                    }
+                }, 1000);
+            }
+        }
+        
+        // Add event listeners
+        yesBtn.addEventListener('click', function() {
+            specialMessage.style.display = 'block';
+            yesBtn.textContent = "YAY! Thank you!";
+            yesBtn.style.fontSize = "2rem";
+            yesBtn.style.padding = "25px 60px";
+            yesBtn.style.backgroundColor = "#ff3355";
+            
+            // Disable the No button
+            noBtn.style.display = 'none';
+            
+            // Add more hearts animation
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createCelebrationHeart();
+                }, i * 100);
+            }
+            
+            // Update the main message
+            document.querySelector('p').innerHTML = "You've made me the happiest person in the world!<br>I can't wait to celebrate Valentine's Day with you!";
+        });
+        
+        noBtn.addEventListener('mouseover', moveNoButton);
+        noBtn.addEventListener('click', function(event) {
+            // Prevent clicking on the No button
+            event.preventDefault();
+            moveNoButton();
+            
+            // If this is the last move, change the button text permanently
+            if (moveCount >= maxMoveCount) {
+                noBtn.textContent = "Okay, fine! Click YES!";
+                noBtn.style.backgroundColor = "#ff9999";
+                noBtn.style.cursor = "not-allowed";
+            }
+        });
+        
+        // Function to create celebration hearts
+        function createCelebrationHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-float');
+            heart.innerHTML = '<i class="fas fa-heart"></i>';
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.fontSize = `${Math.random() * 25 + 20}px`;
+            heart.style.color = '#ff4d6d';
+            heart.style.animationDuration = '3s';
+            heartsContainer.appendChild(heart);
+            
+            // Remove heart after animation completes
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+        
+        // Add a few initial celebration hearts
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                createCelebrationHeart();
+            }, i * 300);
+        }
+    </script>
+</body>
+</html>
